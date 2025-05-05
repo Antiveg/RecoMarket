@@ -3,7 +3,7 @@ Recommendation System Implementation on a groceries management system between en
 
 Because the dataset is too large (> 100MB), you need to insert the dataset folder seperately.
 Download the dataset here : https://www.kaggle.com/datasets/yasserh/instacart-online-grocery-basket-analysis-dataset
-Make sure the dataset format are as follow:
+Make sure the dataset format are as follow:  
 +-------------------------------------------+  
 instacart  
 L aisles.csv  
