@@ -22,7 +22,7 @@ const SubTab = ({logo, text, clicked}) => {
 const AI = () => {
 
     const subPages = [<ProductList/>, <UserList/>, <Recommendation/>, /* <Evaluation/> */]
-    const [subpageidx, setSubPage] = useState(2)
+    const [subpageidx, setSubPage] = useState(0)
 
     return (
         <main className="flex flex-col h-0 flex-grow bg-[var(--background)]">

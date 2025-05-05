@@ -82,19 +82,11 @@ const UserList = () => {
         )
     }
 
-    if(error !== ''){
-        return (
-            <div className='w-full h-full flex justify-center items-center text-base'>
-                {error}
-            </div>
-        )
-    }
-
     return (
         <div className='h-full w-full'>
             <p className='text-sm text-center text-gray-600 mb-4'><i>Disclaimer: This section only shows first 1000 users for efficiency. For more detail, please refer to <b>Evaluation section</b></i></p>
             <div className='h-auto rounded-5 grid lg:grid-cols-4 md:grid-cols-2 grid-rows-auto gap-2 rounded-xl'>
-                {users.length <= 0 ?
+                {(users == null || users.length <= 0) ?
                     <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">No User yet ...</p> :
                     users.map((user) => (<UserAICard user={user} key={user.user_id}/>))
                 }

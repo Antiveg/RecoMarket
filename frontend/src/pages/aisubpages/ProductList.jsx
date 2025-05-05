@@ -113,6 +113,7 @@ const ProductList = () => {
                 setProducts(response.data.products)
             }catch(error){
                 setError(error.response)
+                setProducts([])
             }finally{
                 setLoading(false)
             }
@@ -128,19 +129,11 @@ const ProductList = () => {
         )
     }
 
-    if(error !== ''){
-        return (
-            <div className='w-full h-full flex justify-center items-center text-base'>
-                {error}
-            </div>
-        )
-    }
-
     return (
         <div className='h-full w-full'>
             <p className='text-sm text-center text-gray-600 mb-4'><i>Disclaimer: This section only shows first 1000 products for efficiency. For more detail, please refer to <b>Evaluation section</b></i></p>
             <div className='h-auto rounded-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-2 rounded-xl'>
-                {products.length <= 0 ?
+                {(products == null || products.length <= 0) ?
                     <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">No Products yet ...</p> :
                     products.map((product) => (<ProductCard product={product} key={product.product_id}/>))
                 }

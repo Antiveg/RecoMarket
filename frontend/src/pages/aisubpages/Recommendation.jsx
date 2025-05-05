@@ -205,7 +205,7 @@ const Recommendation = () => {
     const [recommendations, setRecommendations] = useState([])
     
     const [userid, setUserId] = useState(-1)
-    const [collabweight, setCollabWeight] = useState(0.7)
+    const [collabweight, setCollabWeight] = useState(1)
     const [contentweight, setContentWeight] = useState((1 - collabweight).toFixed(2))
 
     const [currPage, setCurrPage] = useState(0)
@@ -268,7 +268,7 @@ const Recommendation = () => {
     if(loading){
         return (
             <div className='w-full h-full flex justify-center products-center text-base'>
-                Fetching Products from Database ...
+                Fetching Necessary Information for Recommendation from Database ...
             </div>
         )
     }
@@ -287,7 +287,7 @@ const Recommendation = () => {
                 <div className="flex flex-col flex-grow h-full w-full p-2 gap-2 bg-[var(--secondary)] rounded-md">
                     <h2 className="font-bold text-base text-center">Try Recommending Products</h2>
                     <div className="flex flex-row w-auto h-full gap-2 p-2 mt-4 mb-4 m-8 justify-center products-center">
-                        {recommendations.map((rec) => (
+                        {recommendations != null && recommendations.map((rec) => (
                             <div className="flex flex-col h-full p-2 w-full bg-[var(--surface)] rounded-md w-1/5 border-4 border-[var(--primary)]" key={rec.product_id}>
                                 <img src={`${uploads}/${rec.department_img}`} alt="no img" className='flex-grow h-0 object-contain'/>
                                 <div>
@@ -316,13 +316,14 @@ const Recommendation = () => {
                             <select
                                 name="wcollab"
                                 id="wcollab"
-                                className="p-1 bg-[var(--surface)] rounded-md"
+                                className="p-1 bg-gray-200 rounded-md"
                                 value={collabweight * 100}
                                 onChange={(e) => {
                                     const value = e.target.value;
                                     setCollabWeight((value / 100).toFixed(2))
                                     setContentWeight((1 - value / 100).toFixed(2))
                                 }}
+                                disabled
                             >
                                 {[...Array(11).keys()].map(i => (
                                     <option key={i} value={i * 10}>
@@ -336,13 +337,14 @@ const Recommendation = () => {
                             <select
                                 name="wcontent"
                                 id="wcontent"
-                                className="p-1 bg-[var(--surface)] rounded-md"
+                                className="p-1 bg-gray-200 rounded-md"
                                 value={contentweight * 100}
                                 onChange={(e) => {
                                     const value = e.target.value
                                     setContentWeight((value / 100).toFixed(2))
                                     setCollabWeight((1 - value / 100).toFixed(2))
                                 }}
+                                disabled
                             >
                                 {[...Array(11).keys()].map(i => (
                                     <option key={i} value={i * 10}>
@@ -359,7 +361,7 @@ const Recommendation = () => {
                     <div className="flex flex-grow gap-2">
                         <img src={next} alt="no img" className="h-full w-[20px] object-contain" value={-1} onClick={() => movePagination(-1)}/>
                         <div className={`h-28 w-full grid lg:grid-cols-6 md:grid-cols-3 grid-rows-1 gap-2`}>
-                            {products.slice(currPage * nshown, currPage * nshown + nshown).map((item) => (
+                            {products != null && products.slice(currPage * nshown, currPage * nshown + nshown).map((item) => (
                                 <div className="flex flex-col h-full w-full p-2 w-full bg-[var(--surface)] rounded-sm" key={item.product_id}>
                                     <img src={`${uploads}/${item.department_img}`} alt="no img" className='flex-grow h-0 object-contain'/>
                                     <h3 className='text-sm text-center line-clamp-1'>{item.product_name}</h3>
