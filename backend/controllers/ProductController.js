@@ -132,7 +132,15 @@ const getUserRecommendations = async (req, res, next) => {
     try {
         const uid = +req.params.uid
         const { collabweight, contentweight } = req.body
-        const response = await axios.get(`${process.env.AI_SERVER_DEV}/recommendations/${uid}`)
+        const response = await axios.get(`${process.env.AI_SERVER_DEV}/recommendations/${uid}`, {
+            params: {
+                collabweight, contentweight
+            }
+        })
+        const recommendations = response.data.recommendations
+        const score_map = new Map(recommendations.map(([id, score]) => [id, score]))
+        const recommended_ids = recommendations.map(([id]) => id)
+
         const products = await Product.findAll({
             attributes: {
                 exclude: ['createdAt','updatedAt']
@@ -147,9 +155,9 @@ const getUserRecommendations = async (req, res, next) => {
                     attributes: ['department_name','department_img']
                 }
             ],
-            where: { product_id: response.data.recommendation_ids }
+            where: { product_id: recommended_ids }
         })
-        const sortedProducts = response.data.recommendation_ids.map((id) => {
+        const sortedProducts = recommended_ids.map((id) => {
             return products.find(product => product.product_id === id)
         })
         const finalProducts = sortedProducts.map((product) => {
@@ -158,7 +166,8 @@ const getUserRecommendations = async (req, res, next) => {
             return {
                 ...others,
                 ...Aisle,
-                ...Department
+                ...Department,
+                score: score_map.get(product.product_id)
             }
         })
         res.status(200).json({

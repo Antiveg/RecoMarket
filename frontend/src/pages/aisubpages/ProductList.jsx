@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import ai from '../../assets/ai.svg'
 import ProductCard from "../../components/ProductCard"
+// import { db } from "../../config/firebaseConfig"
+// import { collection, getDocs } from "firebase/firestore";
 
 /*
 users: (user_id, user_latents)
@@ -101,24 +103,43 @@ const ProductList = () => {
     const [loading, setLoading] = useState(false)
     const [products, setProducts] = useState([])
     const [error, setError] = useState('')
+    const project_status = import.meta.env.VITE_PROJECT_STATUS
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true)
-                // setProducts(temps)
-                const backend = import.meta.env.VITE_BACKEND_BASEURL
-                const request = `${backend}/detailed-products`
-                const response = await axios.get(request)
-                setProducts(response.data.products)
-            }catch(error){
-                setError(error.response)
-                setProducts([])
-            }finally{
-                setLoading(false)
+        if(project_status == "development"){
+            const fetchData = async () => {
+                try {
+                    setLoading(true)
+                    // setProducts(temps)
+                    const backend = import.meta.env.VITE_BACKEND_BASEURL
+                    const request = `${backend}/detailed-products`
+                    const response = await axios.get(request)
+                    setProducts(response.data.products)
+                }catch(error){
+                    setError(error.response)
+                    setProducts([])
+                }finally{
+                    setLoading(false)
+                }
             }
+            fetchData()
+        }else if(project_status == "production"){
+            const fetchProducts = async () => {
+                try {
+                    setLoading(true)
+                    const productsCol = collection(db, "products")
+                    const productsSnapshot = await getDocs(productsCol)
+                    const productsList = productsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+                    setProducts(productsList)
+                } catch (error) {
+                    console.error("Failed to fetch products:", error)
+                    setProducts([])
+                } finally {
+                    setLoading(false)
+                }
+            }
+            fetchProducts()
         }
-        fetchData()
     }, [])
 
     if(loading){

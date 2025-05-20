@@ -289,11 +289,12 @@ const Recommendation = () => {
                     <div className="flex flex-row w-auto h-full gap-2 p-2 mt-4 mb-4 m-8 justify-center products-center">
                         {recommendations != null && recommendations.map((rec) => (
                             <div className="flex flex-col h-full p-2 w-full bg-[var(--surface)] rounded-md w-1/5 border-4 border-[var(--primary)]" key={rec.product_id}>
+                                <p className="text-center text-xs mb-1">{(rec.score * 100).toFixed(2)}% Recommended</p>
                                 <img src={`${uploads}/${rec.department_img}`} alt="no img" className='flex-grow h-0 object-contain'/>
                                 <div>
-                                    <h3 className='text-center font-bold text-md line-clamp-1'>{rec.product_name}</h3>
-                                    <p className='text-center text-sm line-clamp-1'>{rec.department_name} Department</p>
-                                    <p className='text-center text-sm line-clamp-1'>{rec.aisle_name}</p>
+                                    <h3 className='text-center font-bold text-md line-clamp-2'>{rec.product_name}</h3>
+                                    <p className='text-center text-sm line-clamp-1'>{rec.department_name}</p>
+                                    <p className='text-center text-xs line-clamp-1'><i>{rec.aisle_name}</i></p>
                                     <p className='font-italic text-right text-xs line-clamp-1 mt-2'>Product ID{rec.product_id}</p>
                                 </div>
                             </div>
@@ -316,14 +317,14 @@ const Recommendation = () => {
                             <select
                                 name="wcollab"
                                 id="wcollab"
-                                className="p-1 bg-gray-200 rounded-md"
+                                className="p-1 bg-white rounded-md"
                                 value={collabweight * 100}
                                 onChange={(e) => {
                                     const value = e.target.value;
                                     setCollabWeight((value / 100).toFixed(2))
                                     setContentWeight((1 - value / 100).toFixed(2))
                                 }}
-                                disabled
+                                // disabled
                             >
                                 {[...Array(11).keys()].map(i => (
                                     <option key={i} value={i * 10}>
@@ -337,14 +338,14 @@ const Recommendation = () => {
                             <select
                                 name="wcontent"
                                 id="wcontent"
-                                className="p-1 bg-gray-200 rounded-md"
+                                className="p-1 bg-white rounded-md"
                                 value={contentweight * 100}
                                 onChange={(e) => {
                                     const value = e.target.value
                                     setContentWeight((value / 100).toFixed(2))
                                     setCollabWeight((1 - value / 100).toFixed(2))
                                 }}
-                                disabled
+                                // disabled
                             >
                                 {[...Array(11).keys()].map(i => (
                                     <option key={i} value={i * 10}>

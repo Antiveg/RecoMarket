@@ -25,3 +25,4 @@ dist-ssr
 
 # extra
 .env
+uploads/instacart/*
