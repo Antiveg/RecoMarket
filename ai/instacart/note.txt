@@ -1,0 +1,2 @@
+Taruh semua file .csv yang di download dari www.kaggle.com pada folder instacart ini
+link kaggle : https://www.kaggle.com/datasets/yasserh/instacart-online-grocery-basket-analysis-dataset

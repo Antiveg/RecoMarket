@@ -25,4 +25,9 @@ dist-ssr
 
 # extra
 .env
-uploads/instacart/*
+/uploads/instacart/aisles.csv
+/uploads/instacart/departments.csv
+/uploads/instacart/order_products__prior.csv
+/uploads/instacart/order_products__train.csv
+/uploads/instacart/orders.csv
+/uploads/instacart/products.csv

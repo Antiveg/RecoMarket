@@ -1,5 +1,8 @@
-instacart/*
+instacart/aisles.csv
+instacart/departments.csv
+instacart/order_products__prior.csv
+instacart/order_products__train.csv
+instacart/orders.csv
+instacart/products.csv
 __pycache__
 AOL.docx
-Collaborative/SVD.ipynb
-ContentBased/NN.ipynb

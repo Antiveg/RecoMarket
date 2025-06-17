@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import os
 import re
 import pickle
@@ -70,7 +69,7 @@ def clean_text_feature(data : pd.DataFrame, lowercase=True, stopword=True, lemma
 def encode(dataset : pd.DataFrame, sparse=False):
     data = dataset.copy()
     column = dataset.columns[0]
-    model_path=f'./ContentBased/{column}_onehotencoder.pkl'
+    model_path=f'./models/{column}_onehotencoder.pkl'
     if os.path.exists(model_path):
         print(f"Loading existing encoder from {model_path}")
         encoder = pd.read_pickle(model_path)
@@ -86,7 +85,7 @@ def encode(dataset : pd.DataFrame, sparse=False):
 def raw_to_tfidf(dataset: pd.DataFrame, sparse=False):
     column = dataset.columns[0]
     data = dataset[[column]].copy()
-    model_path = f'./ContentBased/{column}_tfidf_vectorizer.pkl'
+    model_path = f'./models/{column}_tfidf_vectorizer.pkl'
 
     if os.path.exists(model_path):
         print(f"Loading existing vectorizer from {model_path}")
@@ -134,8 +133,8 @@ def get_detailed_products():
     return detailed_products
 
 def train_nn_model(features):
-    nn_path='./ContentBased/nn_model.pkl'
-    mapping_path='./ContentBased/product_mapping.pkl'
+    nn_path='./models/nn_model_production.pkl'
+    mapping_path='./models/product_mapping_production.pkl'
     preprocessed_features, product_mapping = extract_features(features)
 
     model = NearestNeighbors(n_neighbors=5, metric='cosine', n_jobs=-1)
@@ -152,10 +151,10 @@ def train_nn_model(features):
 
 def load_nn_model_and_mapping():
 
-    if os.path.exists('./ContentBased/nn_model.pkl') and os.path.exists('./ContentBased/product_mapping.pkl'):
-        with open('./ContentBased/nn_model.pkl', 'rb') as f:
+    if os.path.exists('./models/nn_model_production.pkl') and os.path.exists('./models/product_mapping_production.pkl'):
+        with open('./models/nn_model_production.pkl', 'rb') as f:
             model = pickle.load(f)
-        with open('./ContentBased/product_mapping.pkl', 'rb') as f:
+        with open('./models/product_mapping_production.pkl', 'rb') as f:
             product_mapping = pickle.load(f)
     else:
         products = get_detailed_products()

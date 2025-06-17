@@ -21,7 +21,6 @@ def recommend_for_user(user_id: int, top_n: int = 5, collabweight: float = 0.5, 
     try:
         recommendations = hybrid_recommendation(user_id, top_n, weight_svd=collabweight, weight_nn=contentweight)
         response_data = [(int(item), float(score)) for item, score in recommendations]
-        # print(response_data)
         return {"user_id": user_id, "recommendations": response_data}
     except KeyError:
         raise HTTPException(status_code=404, detail=f"User ID {user_id} not found in dataset.")
