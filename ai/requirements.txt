@@ -1,5 +1,7 @@
 # notes butuh download miniconda / anaconda, commands di execute di anaconda prompt
 
+GitHub Link : https://github.com/Antiveg/MyGroceries
+
 conda create -n temp 
 
 conda activate temp
