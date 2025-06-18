@@ -6,9 +6,6 @@ python -m venv venv
 echo Activating environment...
 call venv\Scripts\activate
 
-echo Upgrading pip...
-python -m pip install --upgrade pip
-
 echo Installing Python libraries...
 pip install -r requirements.txt
 

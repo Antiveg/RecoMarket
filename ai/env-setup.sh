@@ -6,9 +6,6 @@ python3 -m venv venv
 echo "Activating environment..."
 source venv/bin/activate
 
-echo "Upgrading pip..."
-python -m pip install --upgrade pip
-
 echo "Installing Python libraries..."
 pip install -r requirements.txt
 

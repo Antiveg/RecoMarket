@@ -1,9 +1,11 @@
-fastapi
-uvicorn
-numpy
-scikit-learn
-pandas
-scipy
-nltk
-surprise
-python-multipart
+pip==24.2
+fastapi==0.112.2
+uvicorn==0.32.1
+numpy==2.1.2
+scikit-learn==1.6.1
+pandas==2.2.3
+scipy==1.15.1
+nltk==3.9.1
+
+# scikit-surprise==1.1.4
+# scikit-surprise dari conda-forge (anaconda / miniconda) supaya tidak ada compiler error dengan cpython
