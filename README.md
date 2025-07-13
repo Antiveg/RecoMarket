@@ -1,4 +1,4 @@
-# MyGroceries
+# RecoMarket
 Recommendation System Implementation on a groceries management system between end-consumer and supermarkets
 
 Because the dataset is too large (> 100MB), you need to insert the dataset folder seperately.
