@@ -129,7 +129,6 @@ def get_detailed_products():
     detailed_products = products.merge(aisles, on='aisle_id', how='inner')
     detailed_products = detailed_products.merge(departments, on='department_id', how='inner')
     detailed_products = detailed_products.drop(columns=['aisle_id','department_id'])
-    # product_mapping = detailed_products['product_id']
     return detailed_products
 
 def train_nn_model(features):
